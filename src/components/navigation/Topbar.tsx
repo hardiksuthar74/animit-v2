@@ -20,13 +20,17 @@ const Topbar = ({ openSidebar }: { openSidebar: () => void }) => {
     };
   }, []);
   return (
-    <div className="fixed top-0 left-0 w-full h-[80px] z-50">
+    <div
+      className={cn(
+        "fixed top-0 left-0 w-full h-[80px] z-50",
+        isScrolled
+          ? "bg-[#242428cc] shadow-md backdrop-blur-md"
+          : "bg-transparent"
+      )}
+    >
       <div
         className={cn(
-          `w-full h-full transition-all duration-300`,
-          isScrolled
-            ? "bg-[#242428cc] shadow-md backdrop-blur-md"
-            : "bg-transparent"
+          `max-w-[1800px] w-full mt-0 mx-auto  h-full transition-all duration-300`
         )}
       >
         <div className="flex justify-between items-center h-full mx-20 max-sm:mx-5 z-50">

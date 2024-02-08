@@ -8,7 +8,7 @@ const AppLayout = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
-    <>
+    <div className="max-w-[1800px] w-full mt-0 mx-auto px-12 max-sm:px-0">
       <Topbar openSidebar={() => setOpen(true)} />
 
       <Sheet open={open} onOpenChange={() => setOpen(false)}>
@@ -42,7 +42,7 @@ const AppLayout = () => {
         </SheetContent>
       </Sheet>
       <Outlet />
-    </>
+    </div>
   );
 };
 
