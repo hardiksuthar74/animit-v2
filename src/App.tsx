@@ -7,7 +7,7 @@ import Home from "./pages/Home";
 function App() {
   return (
     <>
-      <Topbar />
+     
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>
