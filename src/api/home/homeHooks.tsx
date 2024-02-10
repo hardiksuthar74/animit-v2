@@ -1,0 +1,47 @@
+import { useQuery } from "@tanstack/react-query";
+import { fetchAnime, fetchFeaturesAnime, fetchTopAnimes } from "../api";
+import { JikanAnimeType, JikanData } from "@/types/jikan";
+
+export function useTrendingAnimes() {
+  const { isLoading, data, error } = useQuery({
+    queryKey: ["trending-animes"],
+    queryFn: fetchTopAnimes,
+  });
+
+  const trendingAnimes = data?.data as JikanData;
+
+  return { isLoading, error, trendingAnimes };
+}
+
+export function useAnime(id: number) {
+  const { isLoading, data, error } = useQuery({
+    queryFn: () => fetchAnime(id),
+    queryKey: [`animes-${id}`, id],
+  });
+
+  const anime = data?.data?.data as JikanAnimeType;
+  return { isLoading, error, anime };
+}
+
+export function useFeaturesAnime(
+  status: string,
+  orderBy: string,
+  delay: number
+) {
+  const { isLoading, data, error } = useQuery({
+    queryFn: () => fetchFeaturesAnimeWithDelay(status, orderBy, delay),
+    queryKey: [`features-animes-status=${status}-order-by=${orderBy}`],
+  });
+
+  const anime = data?.data?.data as JikanAnimeType[];
+  return { isLoading, error, anime };
+}
+
+async function fetchFeaturesAnimeWithDelay(
+  status: string,
+  orderBy: string,
+  delay: number
+) {
+  await new Promise((resolve) => setTimeout(resolve, delay));
+  return fetchFeaturesAnime(status, orderBy);
+}

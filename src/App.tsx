@@ -1,5 +1,5 @@
-
 import { Toaster } from "react-hot-toast";
+
 import { BrowserRouter, Routes, Navigate, Route } from "react-router-dom";
 import AppLayout from "@/components/layout/AppLayout";
 import Home from "./pages/Home";
@@ -7,7 +7,6 @@ import Home from "./pages/Home";
 function App() {
   return (
     <>
-     
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>
