@@ -1,5 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchAnime, fetchFeaturesAnime, fetchTopAnimes } from "../api";
+import {
+  fetchAnime,
+  fetchFeaturesAnime,
+  fetchFilterdAnime,
+  fetchTopAnimes,
+} from "../api";
 import { JikanAnimeType, JikanData } from "@/types/jikan";
 
 export function useTrendingAnimes() {
@@ -44,4 +49,27 @@ async function fetchFeaturesAnimeWithDelay(
 ) {
   await new Promise((resolve) => setTimeout(resolve, delay));
   return fetchFeaturesAnime(status, orderBy);
+}
+
+export function useFilteredAnime(
+  status: string,
+  genres: string,
+  rating: string,
+  score: string,
+  type: string
+) {
+  const { isLoading, data, error } = useQuery({
+    queryFn: () => fetchFilterdAnime(status, genres, rating, score, type),
+    queryKey: [
+      `filtered-anime-${status}-${genres}-${rating}-${score}-${type}`,
+      status,
+      genres,
+      rating,
+      score,
+      type,
+    ],
+  });
+
+  const animes = data?.data?.data as JikanAnimeType[];
+  return { isLoading, error, animes };
 }

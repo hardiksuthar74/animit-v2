@@ -2,7 +2,8 @@ import { Toaster } from "react-hot-toast";
 
 import { BrowserRouter, Routes, Navigate, Route } from "react-router-dom";
 import AppLayout from "@/components/layout/AppLayout";
-import Home from "./pages/Home";
+import Home from "@/pages/Home";
+import Filter from "@/pages/Filter";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route element={<AppLayout />}>
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<Home />} />
+            <Route path="filter" element={<Filter />} />
           </Route>
         </Routes>
       </BrowserRouter>

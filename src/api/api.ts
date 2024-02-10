@@ -40,7 +40,31 @@ export const fetchAnime = (id: number) => {
 };
 
 export const fetchFeaturesAnime = (status: string, order_by: string) => {
-  return api.get(
-    `/anime?status=${status}&order_by=${order_by}&limit=5&type=tv`
-  );
+  return api.get(`/anime`, {
+    params: {
+      status,
+      order_by,
+      limit: 5,
+      type: "tv",
+    },
+  });
+};
+
+export const fetchFilterdAnime = (
+  status: string,
+  genres: string,
+  rating: string,
+  score: string,
+  type: string
+) => {
+  return api.get(`/anime`, {
+    params: {
+      status,
+      rating,
+      limit: 21,
+      genres,
+      score,
+      type,
+    },
+  });
 };
