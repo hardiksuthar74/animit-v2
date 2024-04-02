@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useFilteredAnime } from "@/api/home/homeHooks";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface SelectedFilters {
   type: string;
@@ -60,11 +61,15 @@ const Filter = () => {
     setSelectedGenres(updatedGenres);
   };
 
-  console.log(selectedGenres);
-
   const { genres, rating, score, status, type } = selectedFilters;
 
-  const { animes } = useFilteredAnime(status, genres, rating, score, type);
+  const { animes, isLoading, error } = useFilteredAnime(
+    status,
+    genres,
+    rating,
+    score,
+    type
+  );
 
   return (
     <div className="mt-24 max-w-[1400px] mx-auto max-sm:px-6">
@@ -172,27 +177,48 @@ const Filter = () => {
           Filter Results
         </p>
         <div className="col-span-3">
-          <div className="grid grid-cols-7 gap-x-8 gap-y-8 max-sm:grid-cols-2 max-xl:grid-cols-4 max-md:grid-cols-3 max-sm:gap-x-0">
-            {animes &&
-              animes?.map((anime, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="flex flex-col justify-start items-center gap-y-2"
-                  >
-                    <img
-                      className="w-[170px] h-[260px] object-cover  rounded-md max-sm:w-[150px] max-sm:h-[240px]"
-                      src={anime?.images.webp.image_url}
-                      alt="Anime"
-                    />
-                    <p className="text-[13px]">{anime?.title.slice(0, 20)}</p>
-                  </div>
-                );
-              })}
-          </div>
+          {isLoading && !error ? (
+            <SearchedAnimeLoader length={21} />
+          ) : (
+            <div className="grid grid-cols-7 gap-x-8 gap-y-8 max-sm:grid-cols-2 max-xl:grid-cols-4 max-md:grid-cols-3 max-sm:gap-x-0">
+              {animes &&
+                animes?.map((anime, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="flex flex-col justify-start items-center gap-y-2"
+                    >
+                      <img
+                        className="w-[170px] h-[260px] object-cover rounded-md max-sm:w-[150px] max-sm:h-[240px]"
+                        src={anime?.images.webp.image_url}
+                        alt="Anime"
+                      />
+                      <p className="text-[13px]">{anime?.title.slice(0, 20)}</p>
+                    </div>
+                  );
+                })}
+            </div>
+          )}
         </div>
       </div>
     </div>
+  );
+};
+
+const SearchedAnimeLoader = ({ length }: { length: number }) => {
+  const array = Array.from({ length: length });
+
+  return (
+    <>
+      <div className="grid grid-cols-7 gap-x-8 gap-y-8 max-sm:grid-cols-2 max-xl:grid-cols-4 max-md:grid-cols-3 max-sm:gap-x-0">
+        {array.map((_el, index) => (
+          <Skeleton
+            key={index}
+            className="w-[170px] h-[260px] object-cover rounded-md max-sm:w-[150px] max-sm:h-[240px] bg-white bg-opacity-10"
+          />
+        ))}
+      </div>
+    </>
   );
 };
 
