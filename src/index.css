@@ -40,6 +40,9 @@
 @layer base {
   * {
     @apply border-border;
+    ::-webkit-scrollbar {
+      width: 0px;
+    }
   }
   body {
     @apply bg-background text-foreground;

@@ -34,6 +34,14 @@ api.interceptors.response.use(
 export const fetchTopAnimes = () => {
   return api.get(`/top/anime?type=tv&limit=10&filter=airing`);
 };
+export const fetchAnimes = () => {
+  return api.get(`/anime`, {
+    params: {
+      limit: 18,
+      type: "tv",
+    },
+  });
+};
 
 export const fetchAnime = (id: number) => {
   return api.get(`/anime/${id}`);

@@ -10,8 +10,11 @@ import {
 } from "@/components/ui/carousel";
 import { TopAnime } from "@/data/Top";
 import { Button } from "../ui/button";
+import { useNavigate } from "react-router-dom";
 
 const SpotlightAnime = () => {
+  const navigate = useNavigate();
+
   return (
     <Carousel
       plugins={[
@@ -60,7 +63,10 @@ const SpotlightAnime = () => {
                       <p className="max-md:hidden">
                         {anime.synopsis.slice(0, 500) + "..."}
                       </p>
-                      <Button className="bg-purple-400 hover:bg-purple-400/90 rounded-3xl flex px-6">
+                      <Button
+                        onClick={() => navigate(`/anime/${anime.jikanAnimeId}`)}
+                        className="bg-purple-400 hover:bg-purple-400/90 rounded-3xl flex px-6"
+                      >
                         <p>Detail</p>
                         <ChevronRight size={18} />
                       </Button>

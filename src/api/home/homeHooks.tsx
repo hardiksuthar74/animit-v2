@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import {
   fetchAnime,
+  fetchAnimes,
   fetchFeaturesAnime,
   fetchFilterdAnime,
   fetchTopAnimes,
@@ -68,6 +69,15 @@ export function useFilteredAnime(
       score,
       type,
     ],
+  });
+
+  const animes = data?.data?.data as JikanAnimeType[];
+  return { isLoading, error, animes };
+}
+export function useAnimes() {
+  const { isLoading, data, error } = useQuery({
+    queryFn: fetchAnimes,
+    queryKey: [`animes`],
   });
 
   const animes = data?.data?.data as JikanAnimeType[];

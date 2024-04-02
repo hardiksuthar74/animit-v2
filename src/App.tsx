@@ -4,6 +4,9 @@ import { BrowserRouter, Routes, Navigate, Route } from "react-router-dom";
 import AppLayout from "@/components/layout/AppLayout";
 import Home from "@/pages/Home";
 import Filter from "@/pages/Filter";
+import LoginModal from "./components/modal/LoginModal";
+import RegisterModal from "./components/modal/RegisterModal";
+import AnimeDetails from "./pages/AnimeDetails";
 
 function App() {
   return (
@@ -14,8 +17,11 @@ function App() {
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<Home />} />
             <Route path="filter" element={<Filter />} />
+            <Route path="anime/:anime_id" element={<AnimeDetails />} />
           </Route>
         </Routes>
+        <LoginModal />
+        <RegisterModal />
       </BrowserRouter>
       <Toaster
         position="bottom-right"
