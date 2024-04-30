@@ -46,6 +46,13 @@ export const fetchAnimes = () => {
 export const fetchAnime = (id: number) => {
   return api.get(`/anime/${id}`);
 };
+export const fetchSearchAnimes = (anime: string) => {
+  return api.get(`/anime?q=${anime}`, {
+    params: {
+      limit: 5,
+    },
+  });
+};
 
 export const fetchFeaturesAnime = (status: string, order_by: string) => {
   return api.get(`/anime`, {

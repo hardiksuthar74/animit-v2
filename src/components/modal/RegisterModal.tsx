@@ -21,9 +21,9 @@ const RegisterModal = () => {
             <p className="text-center mb-4">Create an Account</p>
             <div className="flex flex-col gap-y-4 text-white">
               <div>
-                <label className="text-[10px] text-white/80">NAME</label>
+                <label className="text-[10px] text-white/80">Username</label>
                 <Input
-                  placeholder="Name"
+                  placeholder="Username"
                   type="text"
                   className="border-0 bg-white/10 w-full focus-visible:ring-0 placeholder:text-white mt-2"
                 />

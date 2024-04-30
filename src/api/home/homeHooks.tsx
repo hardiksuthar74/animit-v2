@@ -4,6 +4,7 @@ import {
   fetchAnimes,
   fetchFeaturesAnime,
   fetchFilterdAnime,
+  fetchSearchAnimes,
   fetchTopAnimes,
 } from "../api";
 import { JikanAnimeType, JikanData } from "@/types/jikan";
@@ -78,6 +79,15 @@ export function useAnimes() {
   const { isLoading, data, error } = useQuery({
     queryFn: fetchAnimes,
     queryKey: [`animes`],
+  });
+
+  const animes = data?.data?.data as JikanAnimeType[];
+  return { isLoading, error, animes };
+}
+export function useSearchAnimes(anime: string) {
+  const { isLoading, data, error } = useQuery({
+    queryFn: () => fetchSearchAnimes(anime),
+    queryKey: [`animes`, anime],
   });
 
   const animes = data?.data?.data as JikanAnimeType[];
